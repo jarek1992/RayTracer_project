@@ -8,7 +8,7 @@ public:
     vec3 normal;
     double t;
 };
-
+//virtual abstract class 
 class hittable {
 public:
     virtual ~hittable() = default;
