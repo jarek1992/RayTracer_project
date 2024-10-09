@@ -1,3 +1,0 @@
-/home/jarek1992/JAREK/raytracer_project/build/Release/CMakeFiles/ray_tracer.dir
-/home/jarek1992/JAREK/raytracer_project/build/Release/CMakeFiles/edit_cache.dir
-/home/jarek1992/JAREK/raytracer_project/build/Release/CMakeFiles/rebuild_cache.dir
