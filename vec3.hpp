@@ -1,8 +1,5 @@
 #pragma once
 
-#include <cmath>
-#include <iostream>
-
 // class representing 3demensional vector
 class vec3 {
 public:
