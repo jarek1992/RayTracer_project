@@ -1,7 +1,7 @@
-#include "rtweekend.hpp"
 #include "camera.hpp"
 #include "hittable.hpp"
 #include "hittable_list.hpp"
+#include "rtweekend.hpp"
 #include "sphere.hpp"
 
 int main() {
@@ -12,11 +12,10 @@ int main() {
 
   camera cam;
 
-  cam.aspect_ratio = 16.0 / 9.0;
-  cam.image_width = 400;
-  cam.samples_per_pixel = 100;
+  cam.aspect_ratio = 16.0 / 9.0; // width : height of image
+  cam.image_width = 400;         // width of the image
+  cam.samples_per_pixel = 100;   // number of random samples per pixel
+  cam.max_depth = 50;            // max recursion depth
 
   cam.render(world);
-  
-  return 0;
 }
