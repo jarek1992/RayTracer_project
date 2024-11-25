@@ -1,1 +1,1 @@
-![image_test](./image.jpg)
+![image_test](https://github.com/jarek1992/raytracer_project/blob/main/image.jpg)
