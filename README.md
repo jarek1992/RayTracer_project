@@ -1,1 +1,1 @@
-![image_test](https://raw.githubusercontent.com/jarek1992/raytracer_project/main/image.jpg)
+![image_test](https://raw.githubusercontent.com/jarek1992/raytracer_project/main/image.png)
