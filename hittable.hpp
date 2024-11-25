@@ -18,7 +18,7 @@ public:
         normal = front_face ? outward_normal : -outward_normal;
     }
 };
-//abstract base class for hittable objects
+//virtual abstract class 
 class hittable {
 public:
     virtual ~hittable() = default;

@@ -1,36 +1,40 @@
 #pragma once
 
 #include <cmath>
+#include <random>
 #include <iostream>
 #include <limits>
 #include <memory>
-#include <cstdlib>
 
-// C++ Std Usings
+//c++ std usings
 using std::make_shared;
 using std::shared_ptr;
 
-// Constants
-const double infinity = std::numeric_limits<double>::infinity();
-const double pi = 3.1415926535897932385;
+//constants
+constexpr double infinity = std::numeric_limits<double>::infinity();
+constexpr double pi = 3.14159265358979323846;
 
-// Utility Functions
+//utility functions
+
+//convert degrees to radians
 inline double degrees_to_radians(double degrees) {
-  return degrees * pi / 180.0;
+    return degrees * pi / 180.0;
 }
 
+// Generates a random double between 0 and 1
 inline double random_double() {
-    // Returns a random real in [0,1).
-    return std::rand() / (RAND_MAX + 1.0);
+    static std::random_device rd;  // Random device
+    static std::mt19937 gen(rd()); // Mersenne Twister random number generator
+    std::uniform_real_distribution<> dis(0.0, 1.0); // Uniform distribution [0,1)
+    return dis(gen);
 }
 
+// Generates a random double between `min` and `max`
 inline double random_double(double min, double max) {
-    // Returns a random real in [min,max).
-    return min + (max-min)*random_double();
+    return min + (max - min) * random_double();
 }
 
-// Common Headers
+//common headers
 #include "color.hpp"
 #include "interval.hpp"
 #include "ray.hpp"
-#include "vec3.hpp"
