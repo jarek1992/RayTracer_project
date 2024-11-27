@@ -9,6 +9,7 @@ public:
         , radius(std::fmax(0, radius))
     {}
 
+    //sphere
     bool hit(const ray& r, interval ray_t, hit_record& rec) const override {
         vec3 oc = center - r.origin();
         auto a = r.direction().length_squared();

@@ -18,9 +18,10 @@ public:
         normal = front_face ? outward_normal : -outward_normal;
     }
 };
-//virtual abstract class 
+//virtual abstract class for hittable objects
 class hittable {
 public:
     virtual ~hittable() = default;
+    //pure virtual method that must be implemented by derived classes
     virtual bool hit(const ray& r, interval ray_t, hit_record& rec) const = 0;
 };

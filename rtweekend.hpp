@@ -21,15 +21,15 @@ inline double degrees_to_radians(double degrees) {
     return degrees * pi / 180.0;
 }
 
-// Generates a random double between 0 and 1
+//generates a random double between 0 and 1
 inline double random_double() {
-    static std::random_device rd;  // Random device
-    static std::mt19937 gen(rd()); // Mersenne Twister random number generator
-    std::uniform_real_distribution<> dis(0.0, 1.0); // Uniform distribution [0,1)
+    static std::random_device rd;  //random device
+    static std::mt19937 gen(rd()); //mersenne Twister random number generator
+    std::uniform_real_distribution<> dis(0.0, 1.0); //uniform distribution [0,1)
     return dis(gen);
 }
 
-// Generates a random double between `min` and `max`
+//generates a random double between `min` and `max`
 inline double random_double(double min, double max) {
     return min + (max - min) * random_double();
 }

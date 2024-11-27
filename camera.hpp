@@ -10,17 +10,16 @@ public:
   double aspect_ratio = 1.0;  //ratio of image width over height
   int image_width = 100;      //rendered image width in pixel count
   int samples_per_pixel = 10; //count of random smaples for each pixel
-  int max_depth = 50;         //max recursion depth
+  int max_depth = 10;         //max recursion depth
 
-  // render
+  //render
   void render(const hittable &world) {
     initialize();
 
     std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
 
     for (int j = 0; j < image_height; j++) {
-      std::clog << "\rScanlines remaining: " << (image_height - j) << ' '
-                << std::flush;
+      std::clog << "\rScanlines remaining: " << (image_height - j) << ' ' << std::flush;
       for (int i = 0; i < image_width; i++) {
         color pixel_color(0, 0, 0);
         for (int sample = 0; sample < samples_per_pixel; sample++) {
@@ -95,17 +94,21 @@ private:
 
   //intersection radius with sphere
   color ray_color(const ray &r, const hittable &world, int depth) const {
+    //if we exceeded the ray bounce limit, no more light is gathered
     if (depth <= 0) {
       return color(0, 0, 0); //black color, when reached max depth
     }
 
     hit_record rec;
 
+    //check if object hit 
     if (world.hit(r, interval(t_min, t_max), rec)) {
-      vec3 direction = random_on_hemisphere(rec.normal);
+      //diffuse rays 
+      vec3 direction = rec.normal + random_unit_vector();
       return 0.5 * ray_color(ray(rec.p, direction), world, depth - 1);
     }
 
+    //default blue backfround
     vec3 unit_direction = unit_vector(r.direction());
     auto t = 0.5 * (unit_direction.y() + 1.0);
     //background gradient

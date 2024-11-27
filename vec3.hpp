@@ -61,6 +61,7 @@ public:
     return e[0] * e[0] + e[1] * e[1] + e[2] * e[2];
   }
 
+  //static methods to generate random vectors
   static vec3 random() {
     return vec3(random_double(), random_double(), random_double());
   }
