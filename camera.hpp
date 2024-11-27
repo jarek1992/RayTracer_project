@@ -105,6 +105,7 @@ private:
     if (world.hit(r, interval(t_min, t_max), rec)) {
       //diffuse rays 
       vec3 direction = rec.normal + random_unit_vector();
+      //percentage of grey intensity in output rendered image (from almost black to very bright color 0,1 - 1.0)
       return 0.5 * ray_color(ray(rec.p, direction), world, depth - 1);
     }
 
