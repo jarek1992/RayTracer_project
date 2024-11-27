@@ -1,5 +1,6 @@
 #include "color.hpp"
 #include "hittable.hpp"
+#include "material.hpp"
 #include "ray.hpp"
 #include "vec3.hpp"
 #include <iostream>
@@ -103,10 +104,13 @@ private:
 
     //check if object hit 
     if (world.hit(r, interval(t_min, t_max), rec)) {
-      //diffuse rays 
-      vec3 direction = rec.normal + random_unit_vector();
-      //percentage of grey intensity in output rendered image (from almost black to very bright color 0,1 - 1.0)
-      return 0.5 * ray_color(ray(rec.p, direction), world, depth - 1);
+      //Ray color with scattered reflectance
+      ray scattered;
+      color attentuation;
+      if (rec.mat->scatter(r, rec, attentuation, scattered)) {
+        return attentuation * ray_color(scattered, world, depth - 1);
+      }
+      return color(0, 0, 0);
     }
 
     //default blue backfround

@@ -4,11 +4,14 @@
 #include "interval.hpp"
 #include "ray.hpp"
 
+class material;
+
 //holds information about the intersection between a ray and an object
 class hit_record {
 public:
     point3 p;         //intersection point
     vec3 normal;      //normal vector at the intersection point
+    shared_ptr<material> mat; //shared_ptr on material
     double t;         //distance along the ray to the intersection point
     bool front_face;  //flag for front/back face hit;
 
