@@ -6,13 +6,14 @@ class sphere : public hittable {
 public:
     sphere(const point3& center, double radius, shared_ptr<material> mat) 
         : center(center)
-        , radius(std::fmax(0, radius))
+        , radius(std::fmax(0, radius)) //prevent from negative radius
         , mat(mat)
     {}
 
     //sphere
     bool hit(const ray& r, interval ray_t, hit_record& rec) const override {
         vec3 oc = center - r.origin();
+        //ray-sphere intersection logic
         auto a = r.direction().length_squared();
         auto h = dot(r.direction(), oc);
         auto c = oc.length_squared() - radius * radius;
@@ -20,7 +21,7 @@ public:
 
         //check if radius hits the sphere
         if (discriminant < 0) {
-            return false;
+            return false; //no intersections
         }
         auto sqrtd = std::sqrt(discriminant);
 
@@ -42,7 +43,7 @@ public:
         return true;
     }
 private:
-    point3 center;
-    double radius; 
-    shared_ptr<material> mat;
+    point3 center; //sphere center
+    double radius; //sphere radius
+    shared_ptr<material> mat; //material pointer
 };
