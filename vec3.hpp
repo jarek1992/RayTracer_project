@@ -71,7 +71,6 @@ public:
   static vec3 random() {
     return vec3(random_double(), random_double(), random_double());
   }
-
   static vec3 random(double min, double max) {
     return vec3(random_double(min,max), random_double(min,max), random_double(min,max));
   }
@@ -152,7 +151,7 @@ inline vec3 random_on_hemisphere(const vec3 &normal) {
     return -on_unit_sphere;
 }
 
-//function for vector reflection
+//vec3 reflection function
 inline vec3 reflect(const vec3& v, const vec3& n) {
     return v - 2*dot(v,n)*n;
 }

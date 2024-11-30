@@ -7,15 +7,13 @@ class material {
 public:
     virtual ~material() = default;
 
-    // /**
-    //  * @brief Scatter the incoming ray according to the material's properties.
-    //  * 
-    //  * @param r_in The incoming ray.
-    //  * @param rec The hit record containing information about the hit point.
-    //  * @param attenuation The color attenuation of the material.
-    //  * @param scattered The scattered ray.
-    //  * @return true if the ray is scattered, false otherwise.
-    //  */
+    //   @brief Scatter the incoming ray according to the material's properties.
+    //   
+    //   @param r_in The incoming ray.
+    //   @param rec The hit record containing information about the hit point.
+    //   @param attenuation The color attenuation of the material.
+    //   @param scattered The scattered ray.
+    //   @return true if the ray is scattered, false otherwise.
 
     virtual bool scatter(
         const ray& r_in, const hit_record& rec, color& attenuation, ray& scattered
@@ -46,16 +44,21 @@ private:
 //class for metal material with reflections
 class metal : public material {
 public:
-    metal(const color& albedo) : albedo(albedo) {}
+    metal(const color& albedo, double fuzz) 
+        : albedo(albedo)
+        , fuzz(fuzz < 1 ? fuzz : 1) //condition for fuzziness 
+        {}
 
     bool scatter(const ray& r_in, const hit_record& rec, color& attenuation, ray& scattered) const override {
         vec3 reflected = reflect(r_in.direction(), rec.normal);
+        reflected = unit_vector(reflected) + (fuzz * random_unit_vector());
         scattered = ray(rec.p, reflected);
         attenuation = albedo;
-        return true;    
+        return (dot(scattered.direction(), rec.normal) > 0);    
     }
 
 private:
     color albedo;
+    double fuzz;
 };
 
