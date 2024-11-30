@@ -62,3 +62,22 @@ private:
     double fuzz;
 };
 
+//class for dielectric material always refracts
+class dielectric : public material {
+public:
+    dielectric(double refraction_index) : refraction_index(refraction_index) {}
+
+    bool scatter(const ray& r_in, const hit_record& rec, color& attenuation, ray& scattered) const override {
+        attenuation = color(1.0, 1.0, 1.0); //always white, because translucent doesnt change color
+        double ri = rec.front_face ? (1.0 / refraction_index) : refraction_index; //calculation of the refractive index
+
+        vec3 unit_direction = unit_vector(r_in.direction()); //the unit direction vector of the incoming ray.
+        vec3 refracted = refract(unit_direction,rec.normal, ri); //calculate refracted ray
+
+        scattered = ray(rec.p, refracted); //creates new scattered ray with beginning = rec.p and refract direction = refracted 
+        return true;
+    }
+private:
+    //refractive index - n
+    double refraction_index;
+};
