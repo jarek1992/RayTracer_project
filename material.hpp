@@ -72,9 +72,20 @@ public:
         double ri = rec.front_face ? (1.0 / refraction_index) : refraction_index; //calculation of the refractive index
 
         vec3 unit_direction = unit_vector(r_in.direction()); //the unit direction vector of the incoming ray.
-        vec3 refracted = refract(unit_direction,rec.normal, ri); //calculate refracted ray
+        double cos_theta = std::fmin(dot(-unit_direction, rec.normal), 1.0); //cos of the angle of incidence
+        double sin_theta = std::sqrt(1.0 - cos_theta * cos_theta); //sin of the angle of incidence(Piragoras)
 
-        scattered = ray(rec.p, refracted); //creates new scattered ray with beginning = rec.p and refract direction = refracted 
+        bool cannot_refract = ri * sin_theta > 1.0; //total internal reflection
+        vec3 direction;
+
+        //direction of the angle of incidence
+        if (cannot_refract) {
+            direction = reflect(unit_direction, rec.normal);
+        } else {
+            direction = refract(unit_direction, rec.normal, ri);
+        }
+
+        scattered = ray(rec.p, direction); //creates new scattered ray with beginning = rec.p and refract direction = refracted 
         return true;
     }
 private:
