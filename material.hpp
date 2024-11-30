@@ -79,7 +79,7 @@ public:
         vec3 direction;
 
         //direction of the angle of incidence
-        if (cannot_refract) {
+        if (cannot_refract || reflectance(cos_theta, ri) > random_double()) {
             direction = reflect(unit_direction, rec.normal);
         } else {
             direction = refract(unit_direction, rec.normal, ri);
@@ -91,4 +91,10 @@ public:
 private:
     //refractive index - n
     double refraction_index;
+    //Schlick's approximation for reflectance
+    static double reflectance(double cosine, double refraction_index) {
+        auto r0 = (1 - refraction_index) / (1 + refraction_index);
+        r0 = r0 * r0;
+        return r0 + (1 - r0) * std::pow((1 - cosine), 5);
+    }
 };
