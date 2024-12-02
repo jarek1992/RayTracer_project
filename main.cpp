@@ -9,28 +9,19 @@ int main() {
   //set up a sphere into world
   hittable_list world;
 
-  auto R = std::cos(pi / 4);
+  //materials
+  auto material_ground = make_shared<lambertian>(color(0.8, 0.8, 0.0));
+  auto material_center = make_shared<lambertian>(color(0.1, 0.2, 0.5));
+  auto material_left = make_shared<dielectric>(1.5);
+  auto material_bubble = make_shared<dielectric>(1.0 / 1.5);
+  auto material_right = make_shared<metal>(color(0.8, 0.6, 0.2), 1);
 
-  auto material_left = make_shared<lambertian>(color(1.0, 0.5, 0.0));
-  auto material_right = make_shared<lambertian>(color(0.0, 0.5, 1.0));
-
-  world.add(make_shared<sphere>(point3(-R-0.5, 0.0, -1.5), R, material_left));
-  world.add(make_shared<sphere>(point3(R, 0.0, -2.0), R, material_right));
-
-
-  // //materials
-  // auto material_ground = make_shared<lambertian>(color(0.8, 0.8, 0.0));
-  // auto material_center = make_shared<lambertian>(color(0.1, 0.2, 0.5));
-  // auto material_left = make_shared<dielectric>(1.5);
-  // auto material_bubble = make_shared<dielectric>(1.0 / 1.5);
-  // auto material_right = make_shared<metal>(color(0.8, 0.6, 0.2), 1);
-
-  // //3D objects into scene
-  // world.add(make_shared<sphere>(point3(0.0, -100.5, -1.0), 100.0, material_ground));
-  // world.add(make_shared<sphere>(point3(0.0, 0.0, -1.2), 0.5, material_center));
-  // world.add(make_shared<sphere>(point3(-1.0, 0.0, -1.0), 0.5, material_left));
-  // world.add(make_shared<sphere>(point3(-1.0, 0.0, -1.0), 0.4, material_bubble));
-  // world.add(make_shared<sphere>(point3(1.0, 0.0, -1.0), 0.5, material_right));
+  //3D objects into scene
+  world.add(make_shared<sphere>(point3(0.0, -100.5, -1.0), 100.0, material_ground));
+  world.add(make_shared<sphere>(point3(0.0, 0.0, -1.2), 0.5, material_center));
+  world.add(make_shared<sphere>(point3(-1.0, 0.0, -1.0), 0.5, material_left));
+  world.add(make_shared<sphere>(point3(-1.0, 0.0, -1.0), 0.4, material_bubble));
+  world.add(make_shared<sphere>(point3(1.0, 0.0, -1.0), 0.5, material_right));
 
   //create camera
   camera cam;
@@ -41,7 +32,11 @@ int main() {
   cam.samples_per_pixel = 100;
   cam.max_depth = 50;
 
-  cam.vfov = 90;
+  //camera settings
+  cam.vfov = 12; //vertical field of the view
+  cam.lookfrom = point3(-2, 2, 4); //cords for camera source
+  cam.lookat = point3(0, 0, -1); //cords for camera target
+  cam.vup = vec3(0, 1, 0); //up vector
 
   //render the scene
   cam.render(world);
