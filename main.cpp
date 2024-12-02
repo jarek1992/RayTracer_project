@@ -45,8 +45,8 @@ int main() {
           world.add(make_shared<sphere>(center, 0.2, sphere_material));
         } else if (choose_material < 0.95) {
           //metal material
-          auto albedo = color::random(0.5, 1);
-          auto fuzz = random_double(0, 0.5);
+          auto albedo = color::random(0.5, 1); //range (0.5, 1) allows to select amongst brighter range
+          auto fuzz = random_double(0, 0.5); //higher value more diffused reflections
           sphere_material = make_shared<metal>(albedo, fuzz);
           world.add(make_shared<sphere>(center, 0.2, sphere_material));
         } else {
