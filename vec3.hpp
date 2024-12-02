@@ -132,6 +132,16 @@ inline vec3 unit_vector(const vec3 &v) {
   return v / v.length(); 
 }
 
+//generate random vector inside unit disk on XY surface (disk with radius 1 and center(0,0,0))
+inline vec3 random_in_unit_disk() {
+  while (true) {
+    auto p = vec3(random_double(-1, 1), random_double(-1, 1), 0); //generate random point in 2D surface
+    if (p.length_squared() < 1) { //checking if point is located on disk
+      return p; //return random point located inside determined disk
+    }
+  }
+}
+
 //generate a random unit vecto
 inline vec3 random_unit_vector() {
     while (true) {
