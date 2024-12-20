@@ -1,6 +1,7 @@
 build/
 .vscode
 *.ppm
+.vs/
 
 # Prerequisites
 *.d
