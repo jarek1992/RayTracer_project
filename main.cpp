@@ -94,8 +94,8 @@ int main() {
 
   //image aspects ratio
   cam.aspect_ratio = 16.0 / 9.0;
-  cam.image_width = 200;
-  cam.samples_per_pixel = 50;
+  cam.image_width = 600;
+  cam.samples_per_pixel = 150;
   cam.max_depth = 50;
 
   //camera settings
